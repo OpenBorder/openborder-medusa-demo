@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Open Border x Medusa Demo Store</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="demo-topbar" aria-label="Demo context">
+        <div class="demo-brand">
+          <span class="brand-mark">OB</span>
+          <span>Open Border × Medusa</span>
+        </div>
+        <div class="demo-flow" aria-label="Integration flow">
+          <span>Medusa storefront</span>
+          <span aria-hidden="true">→</span>
+          <span>Open Border tax + payment</span>
+        </div>
+      </header>
+
+      <section class="product-stage" aria-label="Product">
+        <div class="product-media">
+          <img
+            src="./assets/global-travel-hoodie.png"
+            alt="Charcoal Global Travel Hoodie"
+            class="product-image"
+          />
+          <div class="media-caption">
+            <span>Charcoal technical shell</span>
+            <span>HS 611020</span>
+          </div>
+        </div>
+
+        <div class="product-copy">
+          <div class="product-heading">
+            <div>
+              <h1>Global Travel Hoodie</h1>
+              <p class="description">Travel-ready technical hoodie.</p>
+            </div>
+            <p class="price" id="product-price">$129.00 USD</p>
+          </div>
+
+          <div class="feature-grid" aria-label="Product features">
+            <div class="feature">
+              <span class="feature-icon icon-weight" aria-hidden="true"></span>
+              <span><strong>Lightweight</strong>420g</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon icon-water" aria-hidden="true"></span>
+              <span><strong>Water-repellent</strong>DWR finish</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon icon-air" aria-hidden="true"></span>
+              <span><strong>Breathable</strong>4-way stretch</span>
+            </div>
+            <div class="feature">
+              <span class="feature-icon icon-pack" aria-hidden="true"></span>
+              <span><strong>Travel ready</strong>Packable</span>
+            </div>
+          </div>
+
+          <div class="care-grid">
+            <div>
+              <h2>Materials</h2>
+              <p>87% recycled polyester, 13% elastane.</p>
+            </div>
+            <div>
+              <h2>Care</h2>
+              <p>Machine wash cold with similar colors. Do not bleach.</p>
+            </div>
+          </div>
+
+          <div class="trust-strip" aria-label="Store policy">
+            <span>Ships worldwide</span>
+            <span>30-day easy returns</span>
+            <span>1-year quality guarantee</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="checkout-panel" aria-label="Checkout">
+        <div class="checkout-heading">
+          <div>
+            <h2>Checkout</h2>
+            <p>Destination, quote, payment.</p>
+          </div>
+          <span class="secure">Secure</span>
+        </div>
+
+        <label class="field field-full">
+          <span>Country / Currency</span>
+          <select id="market-select">
+            <option value="US">United States (USD)</option>
+            <option value="GB">United Kingdom (GBP)</option>
+            <option value="DE">Germany (EUR)</option>
+            <option value="CA">Canada (CAD)</option>
+            <option value="AU">Australia (AUD)</option>
+          </select>
+        </label>
+
+        <div class="field-row">
+          <label class="field">
+            <span>Email</span>
+            <input id="email" type="email" value="demo@example.com" autocomplete="email" />
+          </label>
+          <label class="field">
+            <span>Postal Code</span>
+            <input id="postal" type="text" value="10001" autocomplete="postal-code" />
+          </label>
+        </div>
+
+        <div class="shipping-card" aria-label="Shipping method">
+          <span class="shipping-dot"></span>
+          <div>
+            <strong>Standard Shipping</strong>
+            <span>5-7 business days</span>
+          </div>
+          <b id="shipping-price">$9.90</b>
+        </div>
+
+        <section class="summary" aria-label="Order summary">
+          <div class="section-title">
+            <h3>Order Summary</h3>
+            <span id="entity-route">USD → US entity</span>
+          </div>
+          <dl>
+            <div><dt>Subtotal</dt><dd id="subtotal">$129.00</dd></div>
+            <div><dt>Shipping</dt><dd id="shipping">$9.90</dd></div>
+            <div><dt>Tax</dt><dd id="tax">Calculating</dd></div>
+            <div><dt>Duty</dt><dd id="duty">Calculating</dd></div>
+            <div class="total"><dt>Total</dt><dd id="total">$138.90 USD</dd></div>
+          </dl>
+          <p class="quote-state" id="quote-state">Calculating tax and duty with Open Border.</p>
+        </section>
+
+        <section class="payment-box" aria-label="Payment">
+          <div class="payment-title">
+            <span>Payment</span>
+            <span>Secured by Open Border</span>
+          </div>
+          <div id="ob-checkout" class="ob-checkout"></div>
+          <p class="payment-note">Card data never touches Medusa.</p>
+        </section>
+
+        <section id="receipt-card" class="receipt-card" hidden aria-label="Payment result">
+          <div class="receipt-icon">✓</div>
+          <div class="receipt-body">
+            <h3>Payment authorized</h3>
+            <p>This preview demonstrates the handoff before capture and order completion.</p>
+            <dl>
+              <div><dt>Medusa Order ID</dt><dd id="receipt-order">-</dd></div>
+              <div><dt>Open Border Payment Intent</dt><dd id="receipt-intent">-</dd></div>
+              <div><dt>Routed Entity</dt><dd id="receipt-entity">-</dd></div>
+              <div><dt>Authorized total</dt><dd id="receipt-total">-</dd></div>
+            </dl>
+            <details>
+              <summary>Integration details</summary>
+              <pre id="receipt-details"></pre>
+            </details>
+          </div>
+        </section>
+      </aside>
+    </main>
+
+    <script src="./config.js"></script>
+    <script src="./demo-data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
