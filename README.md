@@ -12,6 +12,23 @@ private Open Border monorepo.
 > create a real Medusa order. The default preview uses clearly marked demo identifiers. Use the
 > package registration example below inside a real Medusa v2 project.
 
+## See the demo flow
+
+The keyless preview starts with a US checkout, switches the destination and currency to the UK,
+recalculates tax and duty, and finishes with a manual-capture payment authorization receipt.
+
+![Open Border Medusa demo walkthrough from USD checkout to GBP authorization receipt](./docs/assets/medusa-demo-flow.gif)
+
+<p align="center">
+  <img src="./docs/assets/medusa-demo-checkout-desktop.png" width="68%" alt="Desktop Medusa checkout with a GBP Open Border tax and duty quote" />
+  <img src="./docs/assets/medusa-demo-receipt-mobile.png" width="27%" alt="Mobile Medusa checkout with Open Border authorization receipt proof fields" />
+</p>
+
+The full production Medusa application and account-backed configuration remain private. This
+sanitized standalone demo, the published provider package, and the setup documentation are public.
+All visuals above come from deterministic keyless preview data; they do not contain merchant
+accounts, credentials, dashboard data, or real payment activity.
+
 ## What you can run safely
 
 | Mode | Purpose | Credentials | Public hosting |
