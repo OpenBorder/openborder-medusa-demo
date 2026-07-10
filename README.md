@@ -20,27 +20,62 @@ private Open Border monorepo.
 | API-backed Test mode | Local adapter smoke against a supported Test API | Test keys only | No |
 | Live mode | Real-money activity | Unsupported | No |
 
-## Quick start: keyless preview
+## Complete local demo walkthrough
 
-Requirements: Node.js 20+ and Corepack.
+Use the keyless preview first. It is the safest and most reliable presentation path because it
+does not need credentials or create a Test transaction. If you also want to prove the adapter is
+connected to Open Border, continue with the optional Test-mode walkthrough afterward.
+
+### Before you start
+
+You need Git, Node.js 20 or newer, and Corepack. Check Node.js with:
 
 ```bash
-corepack enable
-pnpm install
-pnpm start
+node --version
 ```
 
-Open <http://127.0.0.1:8000>. Preview mode is the default, makes no Open Border API calls, and
-uses deterministic demo quote and authorization results.
+### Part 1: clone and run the keyless preview
 
-Try the presenter flow:
+1. Clone this public repository and enter its directory:
+
+   ```bash
+   git clone https://github.com/OpenBorder/openborder-medusa-demo.git
+   cd openborder-medusa-demo
+   ```
+
+2. Enable Corepack and install the locked public dependencies:
+
+   ```bash
+   corepack enable
+   pnpm install --frozen-lockfile
+   ```
+
+3. Start the demo:
+
+   ```bash
+   pnpm start
+   ```
+
+4. Open <http://127.0.0.1:8000>.
+
+Preview mode is the default. It makes no Open Border API calls and uses deterministic demo quote
+and authorization results.
+
+### Part 2: present the keyless buyer flow
 
 1. Show the **Global Travel Hoodie**.
-2. Switch the market from United States to United Kingdom.
-3. Watch the postal code, currency, tax, duty, total, and routing label update.
-4. Select **Pay with Open Border**.
-5. Show the demo order reference and demo Open Border payment-intent reference.
-6. Point out that the result says **authorized**, not captured or paid.
+2. Say: “Medusa owns the storefront and order flow. Open Border provides tax, duty, payment
+   authorization, and entity routing.”
+3. Change the market from **United States** to **United Kingdom**.
+4. Point out the updated postal code, GBP amount, tax, duty, total, and UK routing label.
+5. Select **Pay with Open Border**.
+6. Show the demo order reference, demo Open Border payment-intent reference, routing label, and
+   authorized total.
+7. Say: “This preview stops at authorization. A real Medusa application decides when to capture
+   or cancel the payment.”
+
+Use the words **authorized**, not paid or captured. Call the order identifier a **demo order
+reference**, because this repository does not create a real Medusa order.
 
 ## Build a static hosted preview
 
@@ -54,10 +89,27 @@ field for visitors to enter secret keys.
 
 See [HOSTED_DEMO.md](./HOSTED_DEMO.md) for the deployment boundary.
 
-## Optional local Test-mode adapter smoke
+## Optional connected Test-mode walkthrough
 
 API-backed mode exercises the published Open Border tax and Medusa payment-provider adapters with
-Medusa-shaped input. It still does not run Medusa itself or create a Medusa order.
+Medusa-shaped input. It creates activity only on the Test rail; it still does not run Medusa
+itself or create a real Medusa order.
+
+### Part 3: create a paired Test key
+
+1. Open the [Open Border staging dashboard](https://staging.openborderpayments.com/).
+2. Confirm that the environment selector at the top says **Test**. Do not use Production for this
+   demo.
+3. In the left navigation, open **Developers** and stay on the **API keys** tab.
+4. In **Create API key**, select **Test**, enter a name such as `Medusa standup demo`, and select
+   **Create key**.
+5. Copy the secret key beginning with `sk_test_…` immediately. It is displayed only once.
+6. Copy the matching publishable key beginning with `pk_test_…`.
+
+Keep the secret key private. Do not paste it into source files, slides, chat, browser code, or a
+screen-shared terminal.
+
+### Part 4: configure the local Test adapter
 
 1. Copy the environment template:
 
@@ -65,15 +117,53 @@ Medusa-shaped input. It still does not run Medusa itself or create a Medusa orde
    cp .env.example .env
    ```
 
-2. Set `DEMO_MODE=api` and add a Test secret key plus matching Test publishable key. Ask Open
-   Border for the currently supported Test API URL.
-3. Start the local-only server:
+2. Open `.env` in a text editor and set:
+
+   ```dotenv
+   PORT=8000
+   DEMO_MODE=api
+   OPENBORDER_API_KEY=<paste your Test secret key here>
+   OPENBORDER_PUBLISHABLE_KEY=<paste the matching Test publishable key here>
+   ```
+
+   Test keys automatically select the supported Test rail. Set `OPENBORDER_API_URL` only when the
+   Open Border team asks you to override that default.
+
+3. If the preview server is already running, stop it with <kbd>Ctrl</kbd>+<kbd>C</kbd>.
+4. Start the local-only server again:
 
    ```bash
    pnpm start
    ```
 
-The server binds to `127.0.0.1` and rejects live keys. Never deploy this Express server publicly.
+5. Reopen <http://127.0.0.1:8000>.
+
+The server binds to `127.0.0.1` and rejects live keys. Never deploy this Express server publicly
+or expose `.env` while sharing your screen.
+
+### Part 5: complete and verify the Test payment
+
+1. Change the market to **United Kingdom** and wait for the tax-and-duty quote to update.
+2. In the Open Border Test card field, enter:
+   - Card number: `4242 4242 4242 4242`
+   - Expiry: any future date
+   - CVC: any valid three digits
+3. Submit the payment.
+4. Show the authorization receipt and Open Border payment-intent reference.
+5. Optionally return to the staging dashboard, open **Transactions**, and use the reference to
+   show the resulting Test activity.
+6. Say: “This is connected to Open Border’s Test environment. It uses Test rails, so no real
+   money moves.”
+
+### Part 6: clean up after the presentation
+
+1. Stop the local server with <kbd>Ctrl</kbd>+<kbd>C</kbd>.
+2. If the key was created only for the presentation, return to **Developers → API keys**, locate
+   `Medusa standup demo`, and select **Revoke**.
+3. Keep `.env` local and uncommitted, or delete it when it is no longer needed.
+
+Never use `sk_live_…` or `pk_live_…` credentials with this repository. Live mode is unsupported,
+and the local server intentionally rejects live keys.
 
 ## Register the provider in a real Medusa v2 project
 
