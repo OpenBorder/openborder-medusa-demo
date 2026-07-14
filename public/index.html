@@ -12,17 +12,26 @@
       <header class="demo-topbar" aria-label="Demo context">
         <div class="demo-brand">
           <span class="brand-mark">OB</span>
-          <span>Open Border × Medusa</span>
+          <span class="brand-copy">
+            <strong>Open Border × Medusa</strong>
+            <small>Reference storefront · Field test 01</small>
+          </span>
         </div>
         <div class="demo-flow" aria-label="Integration flow">
-          <span>Medusa storefront</span>
+          <span><b>01</b> Medusa storefront</span>
           <span aria-hidden="true">→</span>
-          <span>Open Border tax + payment</span>
+          <span><b>02</b> Open Border quote</span>
+          <span aria-hidden="true">→</span>
+          <span><b>03</b> Authorization</span>
         </div>
       </header>
 
       <section class="product-stage" aria-label="Product">
         <div class="product-media">
+          <div class="media-stamp" aria-hidden="true">
+            <span>FIELD TEST</span>
+            <b>01 / 01</b>
+          </div>
           <img
             src="./assets/global-travel-hoodie.png"
             alt="Charcoal Global Travel Hoodie"
@@ -37,10 +46,16 @@
         <div class="product-copy">
           <div class="product-heading">
             <div>
+              <p class="product-kicker">Transit series · All-weather layer</p>
               <h1>Global Travel Hoodie</h1>
-              <p class="description">Travel-ready technical hoodie.</p>
+              <p class="description">
+                A packable technical layer built for changing terminals, climates, and time zones.
+              </p>
             </div>
-            <p class="price" id="product-price">$129.00 USD</p>
+            <div class="price-lockup">
+              <span>Market price</span>
+              <p class="price" id="product-price">$129.00 USD</p>
+            </div>
           </div>
 
           <div class="feature-grid" aria-label="Product features">
@@ -82,74 +97,109 @@
       </section>
 
       <aside class="checkout-panel" aria-label="Checkout">
+        <div class="checkout-rail">
+          <span>KEYLESS PREVIEW</span>
+          <span>AUTHORIZATION ONLY</span>
+        </div>
         <div class="checkout-heading">
           <div>
-            <h2>Checkout</h2>
-            <p>Destination, quote, payment.</p>
+            <p class="checkout-kicker">Cross-border checkout dossier</p>
+            <h2>Ready for departure?</h2>
+            <p>Choose a market, review the landed cost, then authorize payment.</p>
           </div>
-          <span class="secure">Secure</span>
+          <span class="secure">Test mode</span>
         </div>
 
-        <label class="field field-full">
-          <span>Country / Currency</span>
-          <select id="market-select">
-            <option value="US">United States (USD)</option>
-            <option value="GB">United Kingdom (GBP)</option>
-            <option value="DE">Germany (EUR)</option>
-            <option value="CA">Canada (CAD)</option>
-            <option value="AU">Australia (AUD)</option>
-          </select>
-        </label>
+        <section class="checkout-step destination-step" aria-labelledby="destination-heading">
+          <div class="step-heading">
+            <span class="step-number">1</span>
+            <div>
+              <h3 id="destination-heading">Destination</h3>
+              <p>Medusa sets the market and buyer context.</p>
+            </div>
+          </div>
 
-        <div class="field-row">
-          <label class="field">
-            <span>Email</span>
-            <input id="email" type="email" value="demo@example.com" autocomplete="email" />
+          <label class="field field-full">
+            <span>Country / Currency</span>
+            <span class="select-shell">
+              <select id="market-select">
+                <option value="US">United States (USD)</option>
+                <option value="GB">United Kingdom (GBP)</option>
+                <option value="DE">Germany (EUR)</option>
+                <option value="CA">Canada (CAD)</option>
+                <option value="AU">Australia (AUD)</option>
+              </select>
+            </span>
           </label>
-          <label class="field">
-            <span>Postal Code</span>
-            <input id="postal" type="text" value="10001" autocomplete="postal-code" />
-          </label>
-        </div>
 
-        <div class="shipping-card" aria-label="Shipping method">
-          <span class="shipping-dot"></span>
-          <div>
-            <strong>Standard Shipping</strong>
-            <span>5-7 business days</span>
+          <div class="field-row">
+            <label class="field">
+              <span>Email</span>
+              <input id="email" type="email" value="demo@example.com" autocomplete="email" />
+            </label>
+            <label class="field">
+              <span>Postal Code</span>
+              <input id="postal" type="text" value="10001" autocomplete="postal-code" />
+            </label>
           </div>
-          <b id="shipping-price">$9.90</b>
-        </div>
 
-        <section class="summary" aria-label="Order summary">
-          <div class="section-title">
-            <h3>Order Summary</h3>
-            <span id="entity-route">USD → US entity</span>
+          <div class="shipping-card" aria-label="Shipping method">
+            <span class="shipping-dot"></span>
+            <div>
+              <strong>Standard Shipping</strong>
+              <span>5-7 business days</span>
+            </div>
+            <b id="shipping-price">$9.90</b>
           </div>
-          <dl>
-            <div><dt>Subtotal</dt><dd id="subtotal">$129.00</dd></div>
-            <div><dt>Shipping</dt><dd id="shipping">$9.90</dd></div>
-            <div><dt>Tax</dt><dd id="tax">Calculating</dd></div>
-            <div><dt>Duty</dt><dd id="duty">Calculating</dd></div>
-            <div class="total"><dt>Total</dt><dd id="total">$138.90 USD</dd></div>
-          </dl>
-          <p class="quote-state" id="quote-state">Calculating tax and duty with Open Border.</p>
         </section>
 
-        <section class="payment-box" aria-label="Payment">
-          <div class="payment-title">
-            <span>Payment</span>
-            <span>Secured by Open Border</span>
+        <section class="checkout-step summary" aria-labelledby="summary-heading">
+          <div class="step-heading section-title">
+            <span class="step-number">2</span>
+            <div>
+              <h3 id="summary-heading">Landed total</h3>
+              <p>Open Border quotes tax, duty, and routing.</p>
+            </div>
+            <span class="entity-route" id="entity-route">USD → US entity</span>
           </div>
-          <div id="ob-checkout" class="ob-checkout"></div>
-          <p class="payment-note">Card data never touches Medusa.</p>
+          <div class="summary-body">
+            <dl>
+              <div><dt>Subtotal</dt><dd id="subtotal">$129.00</dd></div>
+              <div><dt>Shipping</dt><dd id="shipping">$9.90</dd></div>
+              <div><dt>Tax</dt><dd id="tax">Calculating</dd></div>
+              <div><dt>Duty</dt><dd id="duty">Calculating</dd></div>
+              <div class="total"><dt>Total</dt><dd id="total">$138.90 USD</dd></div>
+            </dl>
+            <p class="quote-state" id="quote-state">Calculating tax and duty with Open Border.</p>
+          </div>
+        </section>
+
+        <section class="checkout-step payment-step" aria-labelledby="payment-heading">
+          <div class="step-heading">
+            <span class="step-number">3</span>
+            <div>
+              <h3 id="payment-heading">Authorize payment</h3>
+              <p>Encrypted by Open Border. Card data never enters Medusa.</p>
+            </div>
+          </div>
+          <div class="payment-box" aria-label="Payment">
+            <div class="payment-title">
+              <span>Payment details</span>
+              <span>Secured by Open Border</span>
+            </div>
+            <div id="ob-checkout" class="ob-checkout"></div>
+            <p class="payment-note">This demo stops before capture and order completion.</p>
+          </div>
         </section>
 
         <section id="receipt-card" class="receipt-card" hidden aria-label="Payment result">
-          <div class="receipt-icon">✓</div>
+          <div class="receipt-status">
+            <div class="receipt-icon">✓</div>
+            <span>AUTHORIZATION PROOF</span>
+          </div>
           <div class="receipt-body">
             <h3>Payment authorized</h3>
-            <p>This preview demonstrates the handoff before capture and order completion.</p>
+            <p>Medusa owns the order. Open Border returned a manual-capture payment intent.</p>
             <dl>
               <div><dt>Demo order reference</dt><dd id="receipt-order">-</dd></div>
               <div><dt>Open Border Payment Intent</dt><dd id="receipt-intent">-</dd></div>
