@@ -17,6 +17,10 @@ private Open Border monorepo.
 The keyless preview starts with a US checkout, switches the destination and currency to the UK,
 recalculates tax and duty, and finishes with a manual-capture payment authorization receipt.
 
+Watch the [customer-ready Medusa setup-to-transaction walkthrough](https://openborder-public-videos.s3.amazonaws.com/onboarding/openborder-medusa-sandbox-onboarding-v3-guided-matching.mp4)
+for sandbox configuration, server/browser key separation, checkout, routed tax and duty, payment
+authorization, and transaction monitoring.
+
 ![Open Border Medusa demo walkthrough from USD checkout to GBP authorization receipt](./docs/assets/medusa-demo-flow.gif)
 
 <p align="center">
