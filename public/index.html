@@ -8,14 +8,31 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
+    <div class="demo-rail">Open Border test mode · Demo payments only · Live keys are refused</div>
+    <header class="nav">
+      <div class="nav-inner">
+        <a class="store-brand" href="#product" aria-label="Northbound home">
+          <span class="store-mark" aria-hidden="true">◆</span>
+          <span>Northbound</span>
+        </a>
+        <nav class="nav-links" aria-label="Store navigation">
+          <a href="#product">Shop</a>
+          <a href="#details">Essentials</a>
+          <a href="#checkout">Checkout</a>
+        </nav>
+        <div class="nav-right">
+          <span class="integration-badge">Medusa × Open Border</span>
+          <a class="bag-pill" href="#checkout">Bag <span>1</span></a>
+        </div>
+      </div>
+    </header>
+
     <main class="page-shell">
       <header class="demo-topbar" aria-label="Demo context">
-        <div class="demo-brand">
-          <span class="brand-mark">OB</span>
-          <span class="brand-copy">
-            <strong>Open Border × Medusa</strong>
-            <small>Reference storefront · Field test 01</small>
-          </span>
+        <div class="breadcrumb">
+          <a href="#product">Shop</a>
+          <span aria-hidden="true">/</span>
+          <strong>Global Travel Hoodie</strong>
         </div>
         <div class="demo-flow" aria-label="Integration flow">
           <span><b>01</b> Medusa storefront</span>
@@ -26,10 +43,10 @@
         </div>
       </header>
 
-      <section class="product-stage" aria-label="Product">
+      <section class="product-stage" id="product" aria-label="Product">
         <div class="product-media">
           <div class="media-stamp" aria-hidden="true">
-            <span>FIELD TEST</span>
+            <span>NEW SEASON</span>
             <b>01 / 01</b>
           </div>
           <img
@@ -43,7 +60,7 @@
           </div>
         </div>
 
-        <div class="product-copy">
+        <div class="product-copy" id="details">
           <div class="product-heading">
             <div>
               <p class="product-kicker">Transit series · All-weather layer</p>
@@ -96,16 +113,16 @@
         </div>
       </section>
 
-      <aside class="checkout-panel" aria-label="Checkout">
+      <aside class="checkout-panel" id="checkout" aria-label="Checkout">
         <div class="checkout-rail">
           <span>KEYLESS PREVIEW</span>
           <span>AUTHORIZATION ONLY</span>
         </div>
         <div class="checkout-heading">
           <div>
-            <p class="checkout-kicker">Cross-border checkout dossier</p>
-            <h2>Ready for departure?</h2>
-            <p>Choose a market, review the landed cost, then authorize payment.</p>
+            <p class="checkout-kicker">Secure cross-border checkout</p>
+            <h2>Your bag</h2>
+            <p>Choose a destination, review the landed cost, then authorize payment.</p>
           </div>
           <span class="secure">Test mode</span>
         </div>
@@ -223,6 +240,14 @@
         </section>
       </aside>
     </main>
+
+    <footer class="store-footer">
+      <div>
+        <span class="footer-brand"><span aria-hidden="true">◆</span> Northbound</span>
+        <span>Considered essentials for people who move across borders.</span>
+      </div>
+      <span>Cross-border checkout powered by Open Border.</span>
+    </footer>
 
     <script src="./config.js"></script>
     <script src="./demo-data.js"></script>
