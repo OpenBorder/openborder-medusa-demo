@@ -24,7 +24,7 @@ authorization, and transaction monitoring.
 ![Open Border Medusa demo walkthrough from USD checkout to GBP authorization receipt](./docs/assets/medusa-demo-flow.gif)
 
 <p align="center">
-  <img src="./docs/assets/medusa-demo-checkout-desktop.png" width="68%" alt="Desktop Medusa checkout with a GBP Open Border tax and duty quote" />
+  <img src="./docs/assets/medusa-demo-checkout-desktop.png" width="68%" alt="Desktop Medusa checkout with a compact GBP Open Border authorization result" />
   <img src="./docs/assets/medusa-demo-receipt-mobile.png" width="27%" alt="Mobile Medusa checkout with Open Border authorization receipt proof fields" />
 </p>
 

@@ -35,11 +35,11 @@
           <strong>Global Travel Hoodie</strong>
         </div>
         <div class="demo-flow" aria-label="Integration flow">
-          <span><b>01</b> Medusa storefront</span>
+          <span><b>1</b> Medusa storefront</span>
           <span aria-hidden="true">→</span>
-          <span><b>02</b> Open Border quote</span>
+          <span><b>2</b> Open Border quote</span>
           <span aria-hidden="true">→</span>
-          <span><b>03</b> Authorization</span>
+          <span><b>3</b> Authorization</span>
         </div>
       </header>
 
@@ -47,7 +47,7 @@
         <div class="product-media">
           <div class="media-stamp" aria-hidden="true">
             <span>NEW SEASON</span>
-            <b>01 / 01</b>
+            <b>1 / 1</b>
           </div>
           <img
             src="./assets/global-travel-hoodie.png"
@@ -193,15 +193,19 @@
           </div>
         </section>
 
-        <section class="checkout-step payment-step" aria-labelledby="payment-heading">
+        <section
+          class="checkout-step payment-step"
+          id="payment-step"
+          aria-labelledby="payment-heading"
+        >
           <div class="step-heading">
             <span class="step-number">3</span>
             <div>
               <h3 id="payment-heading">Authorize payment</h3>
-              <p>Encrypted by Open Border. Card data never enters Medusa.</p>
+              <p id="payment-description">Encrypted by Open Border. Card data never enters Medusa.</p>
             </div>
           </div>
-          <div class="payment-box" aria-label="Payment">
+          <div class="payment-box" id="payment-box" aria-label="Payment">
             <div class="payment-title">
               <span>Payment details</span>
               <span>Secured by Open Border</span>
@@ -209,33 +213,46 @@
             <div id="ob-checkout" class="ob-checkout"></div>
             <p class="payment-note">This demo stops before capture and order completion.</p>
           </div>
-        </section>
 
-        <section
-          id="receipt-card"
-          class="receipt-card"
-          hidden
-          role="status"
-          aria-live="polite"
-          aria-label="Payment result"
-        >
-          <div class="receipt-status">
-            <div class="receipt-icon">✓</div>
-            <span>AUTHORIZATION PROOF</span>
-          </div>
-          <div class="receipt-body">
-            <h3>Payment authorized</h3>
-            <p>Medusa owns the order. Open Border returned a manual-capture payment intent.</p>
-            <dl>
-              <div><dt>Demo order reference</dt><dd id="receipt-order">-</dd></div>
-              <div><dt>Open Border Payment Intent</dt><dd id="receipt-intent">-</dd></div>
-              <div><dt>Routed Entity</dt><dd id="receipt-entity">-</dd></div>
-              <div><dt>Authorized total</dt><dd id="receipt-total">-</dd></div>
+          <div
+            id="receipt-card"
+            class="receipt-card"
+            hidden
+            role="status"
+            aria-live="polite"
+            aria-label="Payment result"
+          >
+            <div class="receipt-hero">
+              <div class="receipt-icon" aria-hidden="true">✓</div>
+              <div class="receipt-copy">
+                <p class="receipt-kicker">Authorization complete</p>
+                <h3>Payment authorized</h3>
+                <p>Medusa owns the order. Capture remains intentionally paused.</p>
+              </div>
+              <div class="receipt-amount">
+                <span>Authorized total</span>
+                <strong id="receipt-total">-</strong>
+              </div>
+            </div>
+
+            <div class="receipt-route">
+              <span>Routed by Open Border</span>
+              <strong id="receipt-entity">-</strong>
+              <span class="receipt-state">Manual capture</span>
+            </div>
+
+            <dl class="receipt-proofs">
+              <div><dt>Medusa order</dt><dd id="receipt-order">-</dd></div>
+              <div><dt>Open Border intent</dt><dd id="receipt-intent">-</dd></div>
             </dl>
-            <details>
-              <summary>Integration details</summary>
-              <pre id="receipt-details"></pre>
-            </details>
+
+            <div class="receipt-actions">
+              <details>
+                <summary>Integration payload</summary>
+                <pre id="receipt-details"></pre>
+              </details>
+              <button class="receipt-reset" id="receipt-reset" type="button">Run demo again</button>
+            </div>
           </div>
         </section>
       </aside>

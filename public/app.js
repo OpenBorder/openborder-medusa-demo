@@ -65,6 +65,7 @@ function wireEvents() {
   });
   $('postal').addEventListener('change', refreshQuote);
   $('email').addEventListener('change', refreshQuote);
+  $('receipt-reset').addEventListener('click', resetAuthorizationDemo);
 }
 
 function market() {
@@ -99,6 +100,7 @@ function renderMarket(options = {}) {
 async function refreshQuote() {
   const current = market();
   state.quote = null;
+  clearReceipt();
   setQuoteState('Calculating tax and duty with Open Border.', false);
   $('tax').textContent = 'Calculating';
   $('duty').textContent = 'Calculating';
@@ -293,8 +295,28 @@ function showReceipt(data) {
     null,
     2,
   );
+  $('payment-box').hidden = true;
+  $('payment-step').classList.add('is-authorized');
+  $('payment-heading').textContent = 'Authorization complete';
+  $('payment-description').textContent = 'Open Border returned proof to Medusa.';
   $('receipt-card').hidden = false;
   $('receipt-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function clearReceipt() {
+  $('receipt-card').hidden = true;
+  $('payment-box').hidden = false;
+  $('payment-step').classList.remove('is-authorized');
+  $('payment-heading').textContent = 'Authorize payment';
+  $('payment-description').textContent = 'Encrypted by Open Border. Card data never enters Medusa.';
+}
+
+function resetAuthorizationDemo() {
+  clearReceipt();
+  unmountPayment();
+  mountPayment();
+  setQuoteState(`Tax quote ${state.quote.tax_quote_id} is ready.`, false);
+  $('payment-step').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function setQuoteState(message, isError) {
