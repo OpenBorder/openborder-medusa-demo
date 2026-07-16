@@ -955,113 +955,234 @@ select {
   font-size: 0.78rem;
 }
 
+.payment-step.is-authorized .step-number {
+  background: #047857;
+  box-shadow: 0 0 0 5px rgba(4, 120, 87, 0.1);
+}
+
 .receipt-card {
   display: grid;
-  grid-template-columns: 112px minmax(0, 1fr);
-  gap: 18px;
-  margin: 0 24px 24px;
-  padding: 18px;
-  border: 1px solid #a7f3d0;
-  border-radius: var(--radius-small);
+  gap: 13px;
+  margin: 16px 0 0 36px;
+  padding: 16px;
+  border: 1px solid #9ee6c7;
+  border-radius: 16px;
   background:
-    repeating-linear-gradient(-45deg, transparent 0 8px, rgba(4, 120, 87, 0.025) 8px 9px),
-    #ecfdf5;
+    radial-gradient(circle at 94% 8%, rgba(255, 255, 255, 0.9), transparent 32%),
+    linear-gradient(145deg, #effdf7, #e9fbf3);
+  box-shadow: 0 16px 36px rgba(4, 120, 87, 0.1);
+  animation: receipt-in 320ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
 }
 
-.receipt-status {
+.receipt-hero {
   display: grid;
-  align-content: start;
-  justify-items: start;
-  gap: 10px;
-}
-
-.receipt-status > span {
-  color: #047857;
-  font-size: 0.58rem;
-  font-weight: 850;
-  letter-spacing: 0.12em;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
 }
 
 .receipt-icon {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: #047857;
   color: #fff;
-  font-size: 1.25rem;
+  font-size: 1.05rem;
   font-weight: 850;
+  box-shadow: 0 8px 18px rgba(4, 120, 87, 0.18);
 }
 
-.receipt-body h3 {
-  margin: 0 0 3px;
+.receipt-copy {
+  min-width: 0;
+}
+
+.receipt-kicker {
+  margin: 0 0 2px;
+  color: #047857;
+  font-size: 0.58rem;
+  font-weight: 850;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.receipt-copy h3 {
+  margin: 0;
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: 1.55rem;
-  font-weight: 650;
+  font-size: 1.4rem;
+  font-weight: 600;
   line-height: 1;
+  letter-spacing: -0.025em;
 }
 
-.receipt-body {
-  min-width: 0;
+.receipt-copy > p:last-child {
+  margin: 4px 0 0;
+  color: #51605a;
+  font-size: 0.72rem;
 }
 
-.receipt-body > p {
-  margin: 0 0 13px;
-  color: #4b5563;
-  font-size: 0.78rem;
+.receipt-amount {
+  display: grid;
+  gap: 2px;
+  min-width: 118px;
+  padding-left: 14px;
+  border-left: 1px solid rgba(4, 120, 87, 0.2);
+  text-align: right;
 }
 
-.receipt-card dl {
+.receipt-amount span {
+  color: #64736c;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.receipt-amount strong {
+  color: #065f46;
+  font-size: 0.98rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.receipt-route {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 0;
+  border-top: 1px solid rgba(4, 120, 87, 0.14);
+  border-bottom: 1px solid rgba(4, 120, 87, 0.14);
+  color: #627068;
+  font-size: 0.68rem;
+}
+
+.receipt-route strong {
+  color: #065f46;
+  font-size: 0.74rem;
+  white-space: nowrap;
+}
+
+.receipt-state {
+  margin-left: auto;
+  padding: 4px 7px;
+  border: 1px solid rgba(4, 120, 87, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  color: #047857;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.receipt-proofs {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 9px 15px;
+  gap: 8px;
+  margin: 0;
 }
 
-.receipt-card dl div {
+.receipt-proofs div {
   min-width: 0;
   padding: 9px 10px;
-  border: 1px solid rgba(4, 120, 87, 0.2);
-  border-radius: 7px;
-  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(4, 120, 87, 0.16);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.62);
 }
 
-.receipt-card dt,
-.receipt-card dd {
+.receipt-proofs dt,
+.receipt-proofs dd {
   display: block;
   text-align: left;
 }
 
-.receipt-card dd {
-  margin-top: 2px;
+.receipt-proofs dt {
+  color: #64736c;
+  font-size: 0.59rem;
+  font-weight: 750;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.receipt-proofs dd {
+  margin: 4px 0 0;
+  color: #18342b;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.63rem;
+  font-weight: 700;
+  line-height: 1.35;
   overflow-wrap: anywhere;
 }
 
-.receipt-card details {
-  margin-top: 12px;
+.receipt-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-.receipt-card summary {
+.receipt-actions details {
+  min-width: 0;
+}
+
+.receipt-actions summary {
   width: fit-content;
   cursor: pointer;
-  color: var(--ink);
-  font-size: 0.75rem;
+  color: #24483c;
+  font-size: 0.68rem;
   font-weight: 800;
 }
 
-.receipt-card pre {
+.receipt-actions pre {
   width: 100%;
   max-width: 100%;
   max-height: 190px;
   margin: 10px 0 0;
   padding: 12px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(4, 120, 87, 0.16);
   border-radius: 8px;
   background: #fff;
   color: #3a3a44;
-  font-size: 0.7rem;
+  font-size: 0.66rem;
   overflow: auto;
+}
+
+.receipt-reset {
+  min-height: 34px;
+  padding: 7px 12px;
+  border: 1px solid rgba(4, 120, 87, 0.26);
+  border-radius: 999px;
+  background: transparent;
+  color: #065f46;
+  cursor: pointer;
+  font-size: 0.66rem;
+  font-weight: 800;
+  white-space: nowrap;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.receipt-reset:hover {
+  border-color: #047857;
+  background: rgba(255, 255, 255, 0.72);
+  transform: translateY(-1px);
+}
+
+.receipt-reset:focus-visible {
+  outline: 3px solid rgba(4, 120, 87, 0.2);
+  outline-offset: 2px;
+}
+
+@keyframes receipt-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .store-footer {
@@ -1313,17 +1434,37 @@ select {
   }
 
   .receipt-card {
-    grid-template-columns: 1fr;
-    margin: 0 18px 18px;
+    margin-left: 0;
+    padding: 14px;
   }
 
-  .receipt-status {
-    grid-template-columns: auto 1fr;
-    align-items: center;
+  .receipt-hero {
+    grid-template-columns: auto minmax(0, 1fr);
   }
 
-  .receipt-card dl {
+  .receipt-amount {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    min-width: 0;
+    padding: 10px 0 0;
+    border-top: 1px solid rgba(4, 120, 87, 0.16);
+    border-left: 0;
+    text-align: left;
+  }
+
+  .receipt-proofs {
     grid-template-columns: 1fr;
+  }
+
+  .receipt-actions {
+    display: grid;
+    justify-items: start;
+  }
+
+  .receipt-reset {
+    width: 100%;
   }
 
   .store-footer,
