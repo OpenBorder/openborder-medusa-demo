@@ -9,7 +9,7 @@
   "description": "Standalone Open Border checkout preview and Medusa provider adapter harness.",
   "scripts": {
     "build:hosted-preview": "tsx scripts/build-static-preview.ts",
-    "check": "pnpm public-safety && pnpm typecheck && pnpm build:hosted-preview",
+    "check": "pnpm test && pnpm public-safety && pnpm typecheck && pnpm build:hosted-preview",
     "public-safety": "node scripts/public-safety-check.mjs",
     "start": "tsx server.ts",
     "test": "tsx --test tests/*.test.ts",
