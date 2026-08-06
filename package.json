@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "pnpm@10.33.2",
   "engines": {
-    "node": ">=20"
+    "node": ">=20.3"
   },
   "description": "Standalone Open Border checkout preview and Medusa provider adapter harness.",
   "scripts": {
@@ -12,12 +12,13 @@
     "check": "pnpm public-safety && pnpm typecheck && pnpm build:hosted-preview",
     "public-safety": "node scripts/public-safety-check.mjs",
     "start": "tsx server.ts",
+    "test": "tsx --test tests/*.test.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
-    "@open-border/js": "0.3.0",
-    "@open-border/medusa-payment-openborder": "0.3.0",
-    "@open-border/node": "0.3.0",
+    "@open-border/js": "0.9.1",
+    "@open-border/medusa-payment-openborder": "0.9.1",
+    "@open-border/node": "0.9.1",
     "dotenv": "^17.4.2",
     "express": "^4.21.2"
   },

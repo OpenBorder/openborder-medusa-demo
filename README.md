@@ -49,7 +49,7 @@ connected to Open Border, continue with the optional Test-mode walkthrough after
 
 ### Before you start
 
-You need Git, Node.js 20 or newer, and Corepack. Check Node.js with:
+You need Git, Node.js 20.3 or newer, and Corepack. Check Node.js with:
 
 ```bash
 node --version
@@ -118,9 +118,9 @@ itself or create a real Medusa order.
 
 ### Part 3: create a paired Test key
 
-1. Open the [Open Border staging dashboard](https://staging.openborderpayments.com/).
-2. Confirm that the environment selector at the top says **Test**. Do not use Production for this
-   demo.
+1. Open [Open Border Developers](https://app.openborderpayments.com/developers).
+2. Confirm that the environment selector at the top says **Sandbox**. Do not use Live mode for
+   this demo.
 3. In the left navigation, open **Developers** and stay on the **API keys** tab.
 4. In **Create API key**, select **Test**, enter a name such as `Medusa standup demo`, and select
    **Create key**.
@@ -147,8 +147,8 @@ screen-shared terminal.
    OPENBORDER_PUBLISHABLE_KEY=<paste the matching Test publishable key here>
    ```
 
-   Test keys automatically select the supported Test rail. Set `OPENBORDER_API_URL` only when the
-   Open Border team asks you to override that default.
+   API mode targets `https://api-sandbox.openborderpayments.com` by default. Set
+   `OPENBORDER_API_URL` only when the Open Border team asks you to use a local or internal API.
 
 3. If the preview server is already running, stop it with <kbd>Ctrl</kbd>+<kbd>C</kbd>.
 4. Start the local-only server again:
@@ -171,7 +171,7 @@ or expose `.env` while sharing your screen.
    - CVC: any valid three digits
 3. Submit the payment.
 4. Show the authorization receipt and Open Border payment-intent reference.
-5. Optionally return to the staging dashboard, open **Transactions**, and use the reference to
+5. Optionally return to the Sandbox dashboard, open **Transactions**, and use the reference to
    show the resulting Test activity.
 6. Say: “This is connected to Open Border’s Test environment. It uses Test rails, so no real
    money moves.”

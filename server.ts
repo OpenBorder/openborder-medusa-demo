@@ -18,6 +18,7 @@ import {
 
 const PORT = Number(process.env.PORT ?? 8000);
 const HOST = '127.0.0.1';
+const SANDBOX_API_URL = 'https://api-sandbox.openborderpayments.com';
 const DEMO_MODE = process.env.DEMO_MODE === 'api' ? 'api' : 'preview';
 const OPENBORDER_ELEMENT_BUNDLE = path.join(
   __dirname,
@@ -25,6 +26,10 @@ const OPENBORDER_ELEMENT_BUNDLE = path.join(
 );
 
 const integration = DEMO_MODE === 'api' ? createTestIntegration() : null;
+const issuedQuotes = new Map<
+  string,
+  { amountBreakdown: AmountBreakdown; country: string; currency: Currency }
+>();
 
 const app = express();
 app.use(express.json());
@@ -79,7 +84,7 @@ app.post('/api/demo/tax-quote', async (req, res) => {
   if (!clients) return;
   const body = req.body ?? {};
   const market = marketFromBody(body);
-  const subtotal = majorToMinor(PRODUCT.prices[market.currency]);
+  const subtotal = PRODUCT.prices[market.currency];
 
   try {
     const quote = await clients.taxProvider.getTaxLines(
@@ -94,12 +99,19 @@ app.post('/api/demo/tax-quote', async (req, res) => {
       ],
       {
         destination_country: body.country ?? 'US',
-        destination_postal_code: String(body.postal ?? market.postal),
+        ship_from_country: 'US',
         currency: market.currency,
-        shipping_amount: majorToMinor(market.shipping),
+        shipping_amount: market.shipping,
         customer: body.email ? { email: String(body.email) } : undefined,
       },
     );
+
+    const country = String(body.country ?? 'US').toUpperCase();
+    issuedQuotes.set(quote.tax_quote_id, {
+      amountBreakdown: quote.amount_breakdown,
+      country,
+      currency: market.currency,
+    });
 
     res.json({
       ok: true,
@@ -117,22 +129,37 @@ app.post('/api/demo/pay', async (req, res) => {
   const body = req.body ?? {};
   const market = marketFromBody(body);
   const subtotal = PRODUCT.prices[market.currency];
-  const subtotalMinor = majorToMinor(subtotal);
-  const shippingMinor = majorToMinor(market.shipping);
-  const orderDraftId = `medusa-demo-${randomUUID()}`;
   const paymentMethodId = stringField(body.paymentMethodId, 'paymentMethodId');
   const email = stringField(body.email, 'email');
   const postal = String(body.postal ?? market.postal);
   const country = String(body.country ?? 'US').toUpperCase();
+  const taxQuoteId = stringField(body.taxQuoteId, 'taxQuoteId');
+  const issuedQuote = issuedQuotes.get(taxQuoteId);
+  if (
+    !issuedQuote ||
+    issuedQuote.country !== country ||
+    issuedQuote.currency !== market.currency
+  ) {
+    res.status(409).json({
+      ok: false,
+      code: 'quote_not_current',
+      message: 'Create a current tax quote before authorizing the Test payment.',
+    });
+    return;
+  }
+  const cartId = demoCartId(market.currency);
+  const orderDraftId = `medusa-demo-${taxQuoteId}`;
 
   try {
     const result = await clients.paymentProvider.initiatePayment({
-      amount: subtotal,
+      amount: minorToMajor(issuedQuote.amountBreakdown.total),
       currency_code: market.currency.toLowerCase(),
       data: {
+        cart_id: cartId,
         payment_method: paymentMethodId,
-        openborder_tax_quote_id: stringField(body.taxQuoteId, 'taxQuoteId'),
-        shipping_amount: shippingMinor,
+        openborder_tax_quote_id: taxQuoteId,
+        amount_breakdown: issuedQuote.amountBreakdown,
+        shipping_amount: market.shipping,
         customer: {
           email,
           name: String(body.name ?? 'Demo Buyer'),
@@ -154,7 +181,7 @@ app.post('/api/demo/pay', async (req, res) => {
             sku: PRODUCT.sku,
             description: PRODUCT.title,
             quantity: 1,
-            unit_amount: subtotalMinor,
+            unit_amount: subtotal,
             hs_code: PRODUCT.hsCode,
           },
         ],
@@ -209,7 +236,7 @@ function createTestIntegration() {
     'pk_test_',
     process.env.OPENBORDER_PUBLISHABLE_KEY,
   );
-  const apiUrl = process.env.OPENBORDER_API_URL?.trim() || undefined;
+  const apiUrl = process.env.OPENBORDER_API_URL?.trim() || SANDBOX_API_URL;
   const openBorder = createOpenBorderApiClient({ apiKey, baseUrl: apiUrl });
   const taxProvider = new OpenBorderTaxProvider(openBorder);
   const paymentProvider = new OpenBorderMedusaPaymentProviderService(
@@ -249,8 +276,11 @@ function demoCartId(currency: Currency): string {
   return `cart_medusa_demo_${currency.toLowerCase()}`;
 }
 
-function majorToMinor(amount: number): number {
-  return Math.round(amount * 100);
+function minorToMajor(amount: number): number {
+  if (!Number.isSafeInteger(amount)) {
+    throw new Error('amount breakdown must contain integer minor units');
+  }
+  return amount / 100;
 }
 
 function stringField(value: unknown, field: string): string {

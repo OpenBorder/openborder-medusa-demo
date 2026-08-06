@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       '@open-border/js':
-        specifier: 0.3.0
-        version: 0.3.0
+        specifier: 0.9.1
+        version: 0.9.1
       '@open-border/medusa-payment-openborder':
-        specifier: 0.3.0
-        version: 0.3.0
+        specifier: 0.9.1
+        version: 0.9.1
       '@open-border/node':
-        specifier: 0.3.0
-        version: 0.3.0
+        specifier: 0.9.1
+        version: 0.9.1
       dotenv:
         specifier: ^17.4.2
         version: 17.4.2
@@ -195,21 +195,21 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@open-border/domain@0.3.0':
-    resolution: {integrity: sha512-oOCahEdas31jLkKxZsE4yvTr/c4FJ4BCfKCt7r9TDmucTsoo/1aePYAnJakqjluCQdIpcHLVe96BEQvuX4/Org==}
+  '@open-border/domain@0.9.1':
+    resolution: {integrity: sha512-XA/kouvfg0JItI24xRVOCrGDDEljTB3BCq6E7sR6yYSFiH39wtYPPIddnNncX9GEy+jHIIscRt7NIslaA1bKnw==}
     engines: {node: '>=20'}
 
-  '@open-border/js@0.3.0':
-    resolution: {integrity: sha512-ULOw7fCSUgnDJukbyIOXSJPnxrLq/n27Yu+7Mpil3i9Ue8Z0/mDD2GEib/8YtuYiErOYiMACMThidLRp5o80Cg==}
+  '@open-border/js@0.9.1':
+    resolution: {integrity: sha512-LmRetF04OibARJDSl83KlXJZjMsbsym83KUO2my3BEnKG0S1+rYrijmLpErcFQSkXoDndI0fWnYtWH3OsCkN5Q==}
     engines: {node: '>=20'}
 
-  '@open-border/medusa-payment-openborder@0.3.0':
-    resolution: {integrity: sha512-6a1sjU3+ZC9UeTmWOoO0x1kj7+WG/gjqplD2+tCzSAK790QObAryrd8osUrIbUbqyl8zcgPrGllzNaLvu+nJaw==}
+  '@open-border/medusa-payment-openborder@0.9.1':
+    resolution: {integrity: sha512-bI1JoH10PhBYrhMjWVmjOgDSrFDTp9dAKHEMjDaEBv0AA/egBXWIGp3xia0lmUBqRvEcAyYT2Q7SbmfG3/hVYw==}
     engines: {node: '>=20'}
 
-  '@open-border/node@0.3.0':
-    resolution: {integrity: sha512-5rPalc+5kQixRl4so8mx+e/2sm+eHIFvC56HiWqJkl+5/LOnVs4dixpvQ/9hFqnq8ptL3SCegj/B3YOVhblhPA==}
-    engines: {node: '>=20'}
+  '@open-border/node@0.9.1':
+    resolution: {integrity: sha512-IqT/lEFaMc3nT4AgtADo6GcgW0m9DnDJJYMq8LBJmtXCOcCA7K0NieTGH7HWhHvZ4VBe4xr2+ZcfM0UDMJXT9Q==}
+    engines: {node: '>=20.3'}
 
   '@types/body-parser@1.19.6':
     resolution: {integrity: sha512-HLFeCYgz89uk22N5Qg3dvGvsv46B8GLvKKo1zKG4NybA8U2DiEO3w9lqGg29t/tfLRJpJ6iQxnVw4OnB7MoM9g==}
@@ -621,20 +621,20 @@ snapshots:
   '@esbuild/win32-x64@0.28.1':
     optional: true
 
-  '@open-border/domain@0.3.0':
+  '@open-border/domain@0.9.1':
     dependencies:
       zod: 4.4.3
 
-  '@open-border/js@0.3.0': {}
+  '@open-border/js@0.9.1': {}
 
-  '@open-border/medusa-payment-openborder@0.3.0':
+  '@open-border/medusa-payment-openborder@0.9.1':
     dependencies:
-      '@open-border/node': 0.3.0
+      '@open-border/domain': 0.9.1
+      '@open-border/node': 0.9.1
 
-  '@open-border/node@0.3.0':
+  '@open-border/node@0.9.1':
     dependencies:
-      '@open-border/domain': 0.3.0
-      zod: 4.4.3
+      '@open-border/domain': 0.9.1
 
   '@types/body-parser@1.19.6':
     dependencies:

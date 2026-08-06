@@ -32,10 +32,10 @@ Open <http://127.0.0.1:8000>.
 
 ## Optional connected Test walkthrough
 
-1. Open <https://staging.openborderpayments.com/> and confirm the dashboard environment is
-   **Test**.
+1. Open <https://app.openborderpayments.com/developers> and confirm the dashboard environment is
+   **Sandbox**.
 2. Go to **Developers → API keys**.
-3. Create a **Test** key named `Medusa standup demo`.
+3. Create a **Sandbox Test** key named `Medusa standup demo`.
 4. Copy the one-time secret key and its matching publishable key. Do not show or share the secret.
 5. Run `cp .env.example .env`, set `DEMO_MODE=api`, and add both Test keys to `.env`.
 6. Restart `pnpm start` and reopen <http://127.0.0.1:8000>.
