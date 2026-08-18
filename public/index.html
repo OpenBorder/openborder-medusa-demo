@@ -22,7 +22,7 @@
         </nav>
         <div class="nav-right">
           <span class="integration-badge">Medusa × Open Border</span>
-          <a class="bag-pill" href="#checkout">Bag <span>1</span></a>
+          <a class="bag-pill" id="bag-pill" href="#checkout">Bag <span>1</span></a>
         </div>
       </div>
     </header>
@@ -32,9 +32,9 @@
         <div class="breadcrumb">
           <a href="#product">Shop</a>
           <span aria-hidden="true">/</span>
-          <strong>Global Travel Hoodie</strong>
+          <strong id="breadcrumb-product">Global Travel Hoodie</strong>
         </div>
-        <div class="demo-flow" aria-label="Integration flow">
+        <div class="demo-flow" id="demo-flow" aria-label="Integration flow">
           <span><b>1</b> Medusa storefront</span>
           <span aria-hidden="true">→</span>
           <span><b>2</b> Open Border quote</span>
@@ -43,9 +43,23 @@
         </div>
       </header>
 
+      <section class="catalog" id="catalog" aria-labelledby="catalog-heading">
+        <div class="catalog-heading">
+          <div>
+            <h2 id="catalog-heading">Preview catalog</h2>
+            <p>
+              Five fictional listings. Browsing and selection are entirely local and static, and
+              the keyless preview makes no Open Border API calls.
+            </p>
+          </div>
+          <span class="catalog-note">Keyless preview · 5 items</span>
+        </div>
+        <div class="catalog-grid" id="catalog-grid" role="group" aria-label="Preview catalog items"></div>
+      </section>
+
       <section class="product-stage" id="product" aria-label="Product">
         <div class="product-media">
-          <div class="media-stamp" aria-hidden="true">
+          <div class="media-stamp" id="media-stamp" aria-hidden="true">
             <span>NEW SEASON</span>
             <b>1 / 1</b>
           </div>
@@ -53,29 +67,34 @@
             src="./assets/global-travel-hoodie.png"
             alt="Charcoal Global Travel Hoodie"
             class="product-image"
+            id="product-image"
           />
+          <div class="media-placeholder" id="product-image-placeholder" hidden>
+            <span class="media-placeholder-title" id="product-placeholder-title"></span>
+            <span>Preview listing · no demo image</span>
+          </div>
           <div class="media-caption">
-            <span>Charcoal technical shell</span>
-            <span>HS 611020</span>
+            <span id="product-media-caption">Charcoal technical shell</span>
+            <span id="product-hs">HS 611020</span>
           </div>
         </div>
 
         <div class="product-copy" id="details">
           <div class="product-heading">
             <div>
-              <p class="product-kicker">Transit series · All-weather layer</p>
-              <h1>Global Travel Hoodie</h1>
-              <p class="description">
+              <p class="product-kicker" id="product-kicker">Transit series · All-weather layer</p>
+              <h1 id="product-title">Global Travel Hoodie</h1>
+              <p class="description" id="product-description">
                 A packable technical layer built for changing terminals, climates, and time zones.
               </p>
             </div>
             <div class="price-lockup">
-              <span>Market price</span>
+              <span id="price-label">Market price</span>
               <p class="price" id="product-price">$129.00 USD</p>
             </div>
           </div>
 
-          <div class="feature-grid" aria-label="Product features">
+          <div class="feature-grid" id="feature-grid" aria-label="Product features">
             <div class="feature">
               <span class="feature-icon icon-weight" aria-hidden="true"></span>
               <span><strong>Lightweight</strong>420g</span>
@@ -94,7 +113,7 @@
             </div>
           </div>
 
-          <div class="care-grid">
+          <div class="care-grid" id="care-grid">
             <div>
               <h2>Materials</h2>
               <p>87% recycled polyester, 13% elastane.</p>
@@ -105,7 +124,7 @@
             </div>
           </div>
 
-          <div class="trust-strip" aria-label="Store policy">
+          <div class="trust-strip" id="trust-strip" aria-label="Store policy">
             <span>Ships worldwide</span>
             <span>30-day easy returns</span>
             <span>1-year quality guarantee</span>
@@ -114,20 +133,34 @@
       </section>
 
       <aside class="checkout-panel" id="checkout" aria-label="Checkout">
-        <div class="checkout-rail">
+        <div class="checkout-rail" id="checkout-rail">
           <span>KEYLESS PREVIEW</span>
           <span>AUTHORIZATION ONLY</span>
         </div>
-        <div class="checkout-heading">
+        <div class="checkout-heading" id="checkout-heading">
           <div>
             <p class="checkout-kicker">Secure cross-border checkout</p>
             <h2>Your bag</h2>
-            <p>Choose a destination, review the landed cost, then authorize payment.</p>
+            <p id="checkout-subtitle">
+              Choose a destination, review the landed cost, then authorize payment.
+            </p>
           </div>
           <span class="secure">Test mode</span>
         </div>
 
-        <section class="checkout-step destination-step" aria-labelledby="destination-heading">
+        <div id="preview-only-note" class="preview-only-note" hidden role="status" aria-live="polite">
+          <strong id="preview-only-title">Preview only — not purchasable.</strong>
+          <span>
+            This listing is catalog data for the keyless preview. It has no cart, no quote, and no
+            payment path. Only the Global Travel Hoodie is wired to the local adapter harness.
+          </span>
+        </div>
+
+        <section
+          class="checkout-step destination-step"
+          id="destination-step"
+          aria-labelledby="destination-heading"
+        >
           <div class="step-heading">
             <span class="step-number">1</span>
             <div>
@@ -170,7 +203,7 @@
           </div>
         </section>
 
-        <section class="checkout-step summary" aria-labelledby="summary-heading">
+        <section class="checkout-step summary" id="summary-step" aria-labelledby="summary-heading">
           <div class="step-heading section-title">
             <span class="step-number">2</span>
             <div>
@@ -198,7 +231,7 @@
           id="payment-step"
           aria-labelledby="payment-heading"
         >
-          <div class="step-heading">
+          <div class="step-heading" id="payment-step-heading">
             <span class="step-number">3</span>
             <div>
               <h3 id="payment-heading">Authorize payment</h3>

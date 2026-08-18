@@ -8,14 +8,30 @@ The demo shows how a Medusa-shaped cart can hand tax, duty, payment authorizatio
 routing to Open Border. It consumes only public npm packages and does not require access to the
 private Open Border monorepo.
 
-> This repository is not a complete Medusa application. It does not start a Medusa backend or
-> create a real Medusa order. The default preview uses clearly marked demo identifiers. Use the
-> package registration example below inside a real Medusa v2 project.
+> **Scope.** The **hosted static preview** renders a **five-product fictional catalog**. Only one
+> of those items, the Global Travel Hoodie, is wired to the **one-item local adapter harness**; the
+> other four listings are browse-only and are explicitly marked *Preview only — not purchasable*.
+> Selecting one of them hides every hoodie-specific product fact, store promise, bag state, and
+> checkout or authorization control.
+>
+> The local Express server serves the one-item harness only. Its `/api/demo/product` and
+> `/demo-data.js` responses carry no catalog; the five listings exist solely in the static build.
+>
+> This repository is **not a complete Medusa backend or store**. It does not start a Medusa
+> backend, build a real cart, or create a real Medusa order. It is also **not proof of a Sandbox
+> transaction lifecycle**: nothing here captures, refunds, settles, or reconciles a payment. Use
+> the package registration example below inside a real Medusa v2 project.
 
 ## See the demo flow
 
-The keyless preview starts with a US checkout, switches the destination and currency to the UK,
-recalculates tax and duty, and finishes with a manual-capture payment authorization receipt.
+The hosted static preview opens on a five-product catalog. Selecting a listing is entirely local
+and static. For the single adapter-backed listing the preview starts with a US checkout, switches
+the destination and currency to the UK, recalculates tax and duty, and finishes with a simulated
+manual-capture authorization receipt. Selecting any of the other four listings shows only that
+listing's own details and states that it is not purchasable.
+
+Running `pnpm start` locally serves the one-item harness: the Global Travel Hoodie alone, with no
+catalog section.
 
 Watch the [customer-ready Medusa setup-to-transaction walkthrough](https://openborder-public-videos.s3.amazonaws.com/onboarding/openborder-medusa-sandbox-onboarding-v3-guided-matching.mp4)
 for sandbox configuration, server/browser key separation, checkout, routed tax and duty, payment
@@ -31,15 +47,20 @@ authorization, and transaction monitoring.
 The full production Medusa application and account-backed configuration remain private. This
 sanitized standalone demo, the published provider package, and the setup documentation are public.
 All visuals above come from deterministic keyless preview data; they do not contain merchant
-accounts, credentials, dashboard data, or real payment activity.
+accounts, credentials, dashboard data, or real payment activity. The recorded walkthrough predates
+the five-product catalog and shows only the adapter-backed listing.
 
 ## What you can run safely
 
-| Mode | Purpose | Credentials | Public hosting |
-| --- | --- | --- | --- |
-| Preview | Visual buyer-flow walkthrough | None | Yes, as static files |
-| API-backed Test mode | Local adapter smoke against a supported Test API | Test keys only | No |
-| Live mode | Real-money activity | Unsupported | No |
+| Mode | Purpose | Items | Credentials | Public hosting |
+| --- | --- | --- | --- | --- |
+| Hosted static preview | Five-product catalog plus a simulated buyer-flow walkthrough | 5 (1 adapter-backed) | None | Yes, as static files |
+| Local preview (`pnpm start`) | Simulated buyer-flow walkthrough | 1 | None | No |
+| Local API-backed Test mode | Adapter smoke against a supported Test API | 1 | Test keys only | No |
+| Live mode | Real-money activity | — | Unsupported | No |
+
+Everything in preview mode is simulated locally. The preview issues no Open Border API call, loads
+no checkout SDK, sends no checkout POST, and offers no field for credentials or secrets.
 
 ## Complete local demo walkthrough
 
@@ -84,16 +105,20 @@ and authorization results.
 
 ### Part 2: present the keyless buyer flow
 
+The local server presents the one-item harness, so this walkthrough covers the Global Travel
+Hoodie only. For the five-product catalog walkthrough, build and serve the hosted preview instead
+and follow the smoke checks in [HOSTED_DEMO.md](./HOSTED_DEMO.md).
+
 1. Show the **Global Travel Hoodie**.
 2. Say: “Medusa owns the storefront and order flow. Open Border provides tax, duty, payment
    authorization, and entity routing.”
 3. Change the market from **United States** to **United Kingdom**.
 4. Point out the updated postal code, GBP amount, tax, duty, total, and UK routing label.
-5. Select **Pay with Open Border**.
+5. Select **Pay with Open Border**. This is a fully simulated local step; it calls nothing.
 6. Show the demo order reference, demo Open Border payment-intent reference, routing label, and
    authorized total.
-7. Say: “This preview stops at authorization. A real Medusa application decides when to capture
-   or cancel the payment.”
+7. Say: “This preview stops at a simulated authorization. A real Medusa application decides when
+   to capture or cancel the payment.”
 
 Use the words **authorized**, not paid or captured. Call the order identifier a **demo order
 reference**, because this repository does not create a real Medusa order.
@@ -104,17 +129,19 @@ reference**, because this repository does not create a real Medusa order.
 pnpm build:hosted-preview
 ```
 
-Deploy only `dist/hosted-preview` to a static host. The generated artifact is keyless, does not
-load the checkout SDK, performs no payment-network or `/api/demo/*` calls, and does not provide a
-field for visitors to enter secret keys.
+Deploy only `dist/hosted-preview` to a static host. The generated artifact renders the same
+five-product catalog, is keyless, does not load the checkout SDK, performs no Open Border API,
+payment-network, or `/api/demo/*` call, sends no checkout POST, and does not provide a field for
+visitors to enter credentials or secret keys.
 
 See [HOSTED_DEMO.md](./HOSTED_DEMO.md) for the deployment boundary.
 
 ## Optional connected Test-mode walkthrough
 
 API-backed mode exercises the published Open Border tax and Medusa payment-provider adapters with
-Medusa-shaped input. It creates activity only on the Test rail; it still does not run Medusa
-itself or create a real Medusa order.
+Medusa-shaped input for the **single adapter-backed item**. The other four catalog listings are
+never sent to Open Border. It creates activity only on the Test rail; it still does not run Medusa
+itself, create a real Medusa order, or demonstrate a full Sandbox transaction lifecycle.
 
 ### Part 3: create a paired Test key
 
@@ -230,7 +257,8 @@ or order reference for support and reconciliation.
 
 - `public/` — storefront preview and checkout presentation
 - `server.ts` — local preview server and optional Test-mode adapter harness
-- `src/demo-catalog.ts` — demo product and market data
+- `src/demo-catalog.ts` — the adapter-backed `PRODUCT` and market data for the local harness,
+  plus the five-entry `PREVIEW_CATALOG` and the hosted-only payload helpers
 - `scripts/build-static-preview.ts` — produces the keyless static artifact
 - `scripts/public-safety-check.mjs` — blocks private scopes, internal ticket references, internal
   staging URLs, and committed key-shaped secrets
@@ -250,8 +278,14 @@ checks after a clean frozen-lockfile install.
 
 - This repository demonstrates the checkout presentation and adapter contract, not a full Medusa
   backend/storefront deployment.
-- Preview results and IDs are demo-only.
-- API-backed mode is local and Test-only.
+- The hosted preview catalog holds five fictional listings. Four are browse-only; only one is
+  wired to the adapter harness. None of them is a real purchasable product.
+- The local server never serves the catalog. Its demo payload stays the one-item harness shape.
+- Preview amounts are fixed integer minor-unit display values in a single stated currency each.
+  The preview performs no currency conversion.
+- Preview results and IDs are demo-only, and the preview authorization is simulated locally.
+- API-backed mode is local, Test-only, and single-item. It is not proof of a Sandbox transaction
+  lifecycle: capture, refund, settlement, and reconciliation are out of scope.
 - Webhook reconciliation and asynchronous order recovery must be implemented by the real Medusa
   application.
 

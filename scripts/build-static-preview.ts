@@ -1,6 +1,6 @@
 import { cp, mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { createDemoCatalogScript } from '../src/demo-catalog';
+import { createHostedPreviewScript } from '../src/demo-catalog';
 
 const demoRoot = path.resolve(__dirname, '..');
 const publicDir = path.join(demoRoot, 'public');
@@ -19,7 +19,7 @@ async function main(): Promise<void> {
       publishableKey: '',
     })};\n`,
   );
-  await writeFile(path.join(outputDir, 'demo-data.js'), createDemoCatalogScript());
+  await writeFile(path.join(outputDir, 'demo-data.js'), createHostedPreviewScript());
 
   console.log(`Hosted Medusa preview written to ${outputDir}`);
 }
