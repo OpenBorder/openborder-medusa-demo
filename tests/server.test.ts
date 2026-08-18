@@ -224,6 +224,29 @@ test('payment authorization reuses the server-issued quote at the current provid
   }
 });
 
+test('the demo product route keeps the one-item harness shape, with no catalog', async () => {
+  const port = await availablePort();
+  await startDemo(port, {
+    OPENBORDER_API_KEY: 'sk_test_x',
+    OPENBORDER_PUBLISHABLE_KEY: 'pk_test_x',
+  });
+
+  const response = await fetch(`http://127.0.0.1:${port}/api/demo/product`);
+  assert.equal(response.status, 200);
+  const payload = (await response.json()) as Record<string, unknown> & {
+    product?: { sku?: string };
+  };
+
+  assert.deepEqual(Object.keys(payload).sort(), ['markets', 'medusa', 'product']);
+  assert.equal('catalog' in payload, false, 'the adapter harness route must not serve a catalog');
+  assert.equal(payload.product?.sku, 'GTH-BLK-M');
+
+  const demoData = await (await fetch(`http://127.0.0.1:${port}/demo-data.js`)).text();
+  assert.equal(demoData.includes('catalog'), false, 'served demo data must carry no catalog');
+  assert.equal(demoData.includes('Waypoint Bottle'), false);
+  assert.equal(demoData.includes('Passport Wallet'), false);
+});
+
 async function availablePort(): Promise<number> {
   const server = createServer();
   const port = await listen(server);

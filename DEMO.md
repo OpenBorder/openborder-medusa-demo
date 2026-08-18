@@ -1,5 +1,18 @@
 # Presenter script
 
+## What this demo is
+
+- A **five-product keyless preview**, in the hosted static build: five fictional catalog
+  listings, browsable and selectable entirely in the browser.
+- A **one-item local adapter harness**, in the Express server: only the Global Travel Hoodie
+  exists there, and it reaches the Open Border adapters only in optional Test mode.
+
+## What this demo is not
+
+- Not a complete Medusa backend or store. No Medusa server, no real cart, no real order.
+- Not proof of a Sandbox transaction lifecycle. Nothing captures, refunds, settles, or reconciles.
+- Not a purchasable catalog. Four of the five listings are marked *Preview only — not purchasable*.
+
 ## Recommended presentation order
 
 Start with the keyless preview. Only continue to the connected Test-mode section when you want to
@@ -19,16 +32,31 @@ Open <http://127.0.0.1:8000>.
 
 ## Keyless walkthrough
 
+`pnpm start` serves the one-item harness, so these steps cover the Global Travel Hoodie only. To
+present the five-product catalog, build the hosted preview and serve `dist/hosted-preview`.
+
 1. Show the **Global Travel Hoodie**.
 2. Say: “Medusa owns the storefront and order flow. Open Border provides tax, duty, payment
    authorization, and routing.”
 3. Change the market from United States to United Kingdom.
 4. Point to the updated postal code, GBP amount, tax, duty, total, and UK routing label.
-5. Select **Pay with Open Border**.
+5. Select **Pay with Open Border**. Say that this preview step is simulated locally.
 6. Show the demo order reference, demo payment-intent reference, routing label, and authorized
    total.
-7. Say: “This preview stops at authorization. A real Medusa application decides when to capture
-   or cancel the payment.”
+7. Say: “This preview stops at a simulated authorization. A real Medusa application decides when
+   to capture or cancel the payment.”
+
+## Hosted five-product catalog walkthrough
+
+1. Run `pnpm build:hosted-preview` and serve `dist/hosted-preview`.
+2. Show the **Preview catalog**: five fictional listings, each with a stable SKU and an explicit
+   integer minor-unit price in a stated currency.
+3. Select **Passport Wallet**. Point out that the hoodie's features, materials, care, shipping and
+   returns promises, bag count, and the whole checkout and authorization flow all disappear, and
+   the price reads **Preview only · not for sale**.
+4. Say: “Only one listing is wired to the adapter harness. The other four are catalog data.”
+5. Reselect the **Global Travel Hoodie**, marked **Adapter-backed**, and show the full simulated
+   walkthrough returning intact.
 
 ## Optional connected Test walkthrough
 
@@ -50,7 +78,10 @@ Open <http://127.0.0.1:8000>.
 
 - Say **authorized**, not paid or captured.
 - Say **demo order reference**, not real Medusa order.
-- Preview mode is keyless and does not call Open Border APIs.
-- API-backed mode is a local Test-mode adapter smoke, not a public deployment.
+- Say **preview only** for the four browse-only listings. Never imply they can be bought.
+- The five-product catalog exists only in the hosted static build, never in the local server.
+- Preview mode is keyless, is simulated locally, and does not call Open Border APIs.
+- API-backed mode is a one-item local Test-mode adapter smoke, not a public deployment and not a
+  Sandbox lifecycle proof.
 - Never show `.env`, use Production credentials, or say that the preview creates a real Medusa
   order.
