@@ -85,7 +85,8 @@ node --version
    cd openborder-medusa-demo
    ```
 
-2. Enable Corepack and install the locked public dependencies:
+2. Enable Corepack and install the locked public dependencies. The repository uses the public
+   `@open-border/*` npm packages and needs no `.npmrc` or registry token:
 
    ```bash
    corepack enable

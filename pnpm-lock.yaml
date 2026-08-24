@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       '@open-border/js':
-        specifier: 0.9.1
-        version: 0.9.1
+        specifier: 0.9.3
+        version: 0.9.3
       '@open-border/medusa-payment-openborder':
-        specifier: 0.9.1
-        version: 0.9.1
+        specifier: 0.9.3
+        version: 0.9.3
       '@open-border/node':
-        specifier: 0.9.1
-        version: 0.9.1
+        specifier: 0.9.3
+        version: 0.9.3
       dotenv:
         specifier: ^17.4.2
         version: 17.4.2
@@ -195,20 +195,20 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@open-border/domain@0.9.1':
-    resolution: {integrity: sha512-XA/kouvfg0JItI24xRVOCrGDDEljTB3BCq6E7sR6yYSFiH39wtYPPIddnNncX9GEy+jHIIscRt7NIslaA1bKnw==}
+  '@open-border/domain@0.9.3':
+    resolution: {integrity: sha512-5dLhRUc5HPlets4oOhDAVvmTW7w/RF0RGSwLzT59Jxzi27tOlA0VC3LFI7/WYykArFe9zlqX5Qa5Wxw1vwnXtA==}
     engines: {node: '>=20'}
 
-  '@open-border/js@0.9.1':
-    resolution: {integrity: sha512-LmRetF04OibARJDSl83KlXJZjMsbsym83KUO2my3BEnKG0S1+rYrijmLpErcFQSkXoDndI0fWnYtWH3OsCkN5Q==}
+  '@open-border/js@0.9.3':
+    resolution: {integrity: sha512-fEBhGOEh6oPYl/OKBCpb82GT8cctOvSeGrPqKTFS/DRQqK/J9iofKMml4XQrn507WtCz0gWTKyf3FGckiO/0gQ==}
     engines: {node: '>=20'}
 
-  '@open-border/medusa-payment-openborder@0.9.1':
-    resolution: {integrity: sha512-bI1JoH10PhBYrhMjWVmjOgDSrFDTp9dAKHEMjDaEBv0AA/egBXWIGp3xia0lmUBqRvEcAyYT2Q7SbmfG3/hVYw==}
+  '@open-border/medusa-payment-openborder@0.9.3':
+    resolution: {integrity: sha512-YmCges3Yjh6i4yyKjtCN9OsZGy96A3kfvQtqaEl4kPNHFCi8zlDlMz8JlPtFaL/R2t5pxoNEe/E6dMN9LMLfDw==}
     engines: {node: '>=20'}
 
-  '@open-border/node@0.9.1':
-    resolution: {integrity: sha512-IqT/lEFaMc3nT4AgtADo6GcgW0m9DnDJJYMq8LBJmtXCOcCA7K0NieTGH7HWhHvZ4VBe4xr2+ZcfM0UDMJXT9Q==}
+  '@open-border/node@0.9.3':
+    resolution: {integrity: sha512-SN44PxwV7FoDQWBA9wjUnR/s2mIICAOIs6ZnXQrA5xUFubrs+n5K9oUdFij70fFW59clMXQYncu4kC77MB3xYQ==}
     engines: {node: '>=20.3'}
 
   '@types/body-parser@1.19.6':
@@ -621,20 +621,20 @@ snapshots:
   '@esbuild/win32-x64@0.28.1':
     optional: true
 
-  '@open-border/domain@0.9.1':
+  '@open-border/domain@0.9.3':
     dependencies:
       zod: 4.4.3
 
-  '@open-border/js@0.9.1': {}
+  '@open-border/js@0.9.3': {}
 
-  '@open-border/medusa-payment-openborder@0.9.1':
+  '@open-border/medusa-payment-openborder@0.9.3':
     dependencies:
-      '@open-border/domain': 0.9.1
-      '@open-border/node': 0.9.1
+      '@open-border/domain': 0.9.3
+      '@open-border/node': 0.9.3
 
-  '@open-border/node@0.9.1':
+  '@open-border/node@0.9.3':
     dependencies:
-      '@open-border/domain': 0.9.1
+      '@open-border/domain': 0.9.3
 
   '@types/body-parser@1.19.6':
     dependencies:
