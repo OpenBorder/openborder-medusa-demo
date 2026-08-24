@@ -16,9 +16,9 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
-    "@open-border/js": "0.9.1",
-    "@open-border/medusa-payment-openborder": "0.9.1",
-    "@open-border/node": "0.9.1",
+    "@open-border/js": "0.9.4",
+    "@open-border/medusa-payment-openborder": "0.9.4",
+    "@open-border/node": "0.9.4",
     "dotenv": "^17.4.2",
     "express": "^4.21.2"
   },

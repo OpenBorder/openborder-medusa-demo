@@ -3,7 +3,11 @@ import { readFileSync } from 'node:fs';
 
 const forbidden = [
   ['private package scope', /@openborder-mor\//g],
+  ['authenticated package scope', /@openborder\//g],
   ['workspace dependency', /workspace:\*/g],
+  ['authenticated package registry', /npm\.pkg\.github\.com/g],
+  ['package registry token', new RegExp('NODE_AUTH' + '_TOKEN|NPM' + '_TOKEN', 'g')],
+  ['private payments repository', /github\.com\/OpenBorder\/payments/g],
   ['internal PAY ticket', /PAY-[0-9]+/g],
   ['internal staging hostname', /api-staging\.openborderpayments\.com/g],
   ['committed live secret', /sk_live_[A-Za-z0-9_-]{8,}/g],
